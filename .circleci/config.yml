@@ -1,0 +1,27 @@
+version: 2.1
+
+jobs:
+  curl:
+    parameters:
+      page-url:
+        type: string
+    resource_class: small
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - run:
+          name: Curl to << parameters.page-url >>
+          command: |
+            curl -v << parameters.page-url >>
+      - run:
+           name: Curl with specified User-Agent
+           command: |
+             # inspired by https://stackoverflow.com/a/42915713
+             # also see https://catonmat.net/cookbooks/curl/change-user-agent
+             curl -A 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36' << parameters.page-url >>
+
+workflows:
+  main:
+    jobs:
+      - curl:
+          page-url: https://www.britishcouncilfoundation.id/en/english/articles/british-and-american-english
