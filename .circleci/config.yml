@@ -9,10 +9,10 @@ jobs:
     docker:
       - image: cimg/base:stable
     steps:
-        - run:
-            name: Curl to << parameters.page-url >>
-            command: |
-              curl -v << parameters.page-url >>
+      - run:
+          name: Curl to << parameters.page-url >>
+          command: |
+            curl -v << parameters.page-url >>
       - run:
            name: Curl with specified User-Agent
            command: |
